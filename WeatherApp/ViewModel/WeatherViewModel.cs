@@ -46,10 +46,13 @@ namespace WeatherApp.ViewModel
             }
 
             SearchCommand = new SearchCommand(this);
+            CurrentConditionsCommand = new GetCurrentConditionsCommand(this);
             Cities = new ObservableCollection<City>();
         }
 
         public SearchCommand SearchCommand { get; set; }
+
+        public GetCurrentConditionsCommand CurrentConditionsCommand { get; set; }
 
         public string Query
         {
@@ -82,17 +85,19 @@ namespace WeatherApp.ViewModel
                 _selectedCity = value;
                 OnPropertyChanged(nameof(SelectedCity));
                 GetCurrentConditions();
-
             }
         }
 
         public ObservableCollection<City> Cities { get; set; }
 
-        private async Task GetCurrentConditions()
+        public async void GetCurrentConditions()
         {
             Query = "";
             Cities.Clear();
-            CurrentConditions = await AcuWeatherHelper.GetWeatherConditions(SelectedCity.Key);
+            if (SelectedCity != null)
+            {
+                CurrentConditions = await AcuWeatherHelper.GetWeatherConditions(SelectedCity.Key);
+            }
         }
 
         public async Task MakeQuery()

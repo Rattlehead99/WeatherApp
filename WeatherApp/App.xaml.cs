@@ -51,6 +51,18 @@ assigned from C# the UI gets updated with it, and when the UI property is assign
     - C. Binding source is established
     - D. Changes update the UI
  */
+//T87. The IValueConverter interface
+/*
+    A.  Why use it?
+    - Changing from the Model to what the View needs
+    - Changing View inputs into Model data
+    - Adapt the model to the view
+
+    B. How it works:
+    - A class implements the interface
+    - The Convert method casts Model to View
+    - The ConvertBack method casts View to Model
+ */
 namespace WeatherApp
 {
     /// <summary>
