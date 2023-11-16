@@ -54,6 +54,7 @@ namespace WeatherApp.ViewModel
 
         public GetCurrentConditionsCommand CurrentConditionsCommand { get; set; }
 
+
         public string Query
         {
             get => _query;
@@ -84,16 +85,16 @@ namespace WeatherApp.ViewModel
                 if (Equals(value, _selectedCity)) return;
                 _selectedCity = value;
                 OnPropertyChanged(nameof(SelectedCity));
-                GetCurrentConditions();
+                //LoadCurrentConditions();
             }
         }
 
         public ObservableCollection<City> Cities { get; set; }
 
-        public async void GetCurrentConditions()
+        public async Task LoadCurrentConditions()
         {
             Query = "";
-            Cities.Clear();
+           // Cities.Clear();
             if (SelectedCity != null)
             {
                 CurrentConditions = await AcuWeatherHelper.GetWeatherConditions(SelectedCity.Key);

@@ -23,7 +23,7 @@ namespace WeatherApp.ViewModel.Commands
 
         public async void Execute(object? parameter)
         {
-            WeatherVm.GetCurrentConditions();
+            await WeatherVm.LoadCurrentConditions();
         }
 
         public event EventHandler? CanExecuteChanged;

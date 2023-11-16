@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WeatherApp.View"
         xmlns:vm="clr-namespace:WeatherApp.ViewModel"
         xmlns:converter="clr-namespace:WeatherApp.ViewModel.ValueConverters"
+        xmlns:beh="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="WeatherWindow" Height="500" Width="400">
     <Window.Resources>
@@ -32,6 +33,26 @@
 
             <ListView ItemsSource="{Binding Cities}"
                       SelectedValue="{Binding SelectedCity}">
+
+                <beh:Interaction.Triggers>
+                    <beh:EventTrigger EventName="SelectionChanged">
+                        <beh:InvokeCommandAction 
+                            Command="{Binding CurrentConditionsCommand}"
+                            CommandParameter="{Binding SelectedCity}"/>
+                    </beh:EventTrigger>
+                </beh:Interaction.Triggers>
+
+                <ListView.Style>
+                    <Style TargetType="ListView">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedCity}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                        <Setter Property="Visibility" Value="Hidden"/>
+                    </Style>
+                </ListView.Style>
+
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid>
